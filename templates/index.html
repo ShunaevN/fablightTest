@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.is_admin %}
+    <a href="/users" class="btn btn-secondary">Добавить пользователя</a>
+{% endif %}
+<h1>Список пользователей</h1>
+{% for user in users%}
+<div class="col-md6 border rounded">
+    <h2>Пользователь {{loop.index}}</h2>
+    <div>
+        Логин - {{user.name}}, Почта - {{user.email}}
+        {% if current_user.is_authenticated %}
+    <div>
+        <a href="/user/{{ user.id }}" class="btn btn-warning">
+            Изменить
+        </a>
+        <a href="/user_delete/{{ user.id }}" class="btn btn-danger">
+            Удалить
+        </a>
+    </div>
+{% endif %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
